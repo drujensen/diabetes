@@ -1,0 +1,6 @@
+version: 1.0
+shards:
+  shainet:
+    github: NeuraLegion/shainet
+    version: 1.2.0
+

@@ -1,0 +1,17 @@
+name: diabetes
+version: 0.1.0
+
+authors:
+  - Dru Jensen <drujensen@gmail.com>
+
+targets:
+  diabetes:
+    main: src/diabetes.cr
+
+crystal: 0.23.1
+
+license: MIT
+
+dependencies:
+  shainet:
+    github: NeuraLegion/shainet
