@@ -1,6 +1,6 @@
 # Deep Learning using Crystal
 
-This workbook demonstrates how to create a NN using SHAINet.  We will be using the [Pima Indians dataset](https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes)
+This workbook demonstrates how to create a NN using SHAInet.  We will be using the [Pima Indians dataset](https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes)
 
 ## Load and Parse Data
 
@@ -38,7 +38,7 @@ end
 
 ## Create the Model
 
-We will now create a model using SHAINet:
+We will now create a model using SHAInet:
 ```playground
 require "shainet"
 
