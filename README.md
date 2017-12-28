@@ -1,6 +1,6 @@
-# Deep Learning Example using SHAINet 
+# Deep Learning Example using SHAInet 
 
-This workbook demonstrates how to create a Deep Learning network using SHAINet.  We will be using the [Pima Indians dataset](https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes) to predict diabetes.
+This workbook demonstrates how to create a Deep Learning network using SHAInet.  We will be using the [Pima Indians dataset](https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes) to predict diabetes.
 
 ## Installation
 
