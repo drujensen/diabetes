@@ -94,12 +94,16 @@ diabetes.add_layer(:hidden, 8, :memory)
 diabetes.add_layer(:output, 2, :memory)
 diabetes.fully_connect
 
+# params for sgdm
+diabetes.learning_rate = 0.01
+diabetes.momentum = 0.01
+
+
 # train the network
-diabetes.train_batch(normalized.data, :adam, :mse, :sigmoid, 10000, 0.01)
+diabetes.train_batch(normalized.data, :sgdm, :mse, epoch = 1000, threshold = -1.0, log = 100)
 
 # save the model
-diabetes.save_weights("./diabetes.h5")
-diabetes.save_model("./diabetes.json")
+diabetes.save_to_file("./model/diabetes.nn")
 ```
 
 ## Load and Run the Model
@@ -109,8 +113,7 @@ Now we can load and run against the trained model:
 require "shainet"
 
 diabetes : SHAInet::Network = SHAInet::Network.new
-diabetes.load_model("./diabetes.json")
-diabetes.load_weights("./diabetes.h5")
+diabetes.load_from_file("./model/diabetes.nn")
 
 diabetes.run([0.058823529411764705, 0.46733668341708545, 0.5737704918032788, 0.0, 0.45305514157973176, 0.03333333333333333])
 ```
