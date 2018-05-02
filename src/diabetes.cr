@@ -34,9 +34,9 @@ normalized.normalize_min_max
 
 # create a network
 diabetes : SHAInet::Network = SHAInet::Network.new
-diabetes.add_layer(:input, 6, "memory", SHAInet.sigmoid)
-diabetes.add_layer(:hidden, 12, "memory", SHAInet.sigmoid)
-diabetes.add_layer(:output, 2, "memory", SHAInet.sigmoid)
+diabetes.add_layer(:input, 6, :memory)
+diabetes.add_layer(:hidden, 8, :memory)
+diabetes.add_layer(:output, 2, :memory)
 diabetes.fully_connect
 
 # params for sgdm
@@ -44,7 +44,7 @@ diabetes.learning_rate = 0.01
 diabetes.momentum = 0.01
 
 # train the network
-diabetes.train(normalized.data.shuffle, :sgdm, :c_ent, epoch = 1000, threshold = -1.0, log = 100)
+diabetes.train(normalized.data.shuffle, :sgdm, :mse, epoch = 1000, threshold = -1.0, log = 100)
 
 # save to file
 diabetes.save_to_file("./model/diabetes.nn")
