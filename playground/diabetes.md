@@ -115,8 +115,8 @@ require "shainet"
 diabetes : SHAInet::Network = SHAInet::Network.new
 diabetes.load_from_file("./model/diabetes.nn")
 
-results = diabetes.run([0.058823529411764705, 0.46733668341708545, 0.5737704918032788, 0.0, 0.45305514157973176, 0.03333333333333333])
-puts "There is a #{(results[1] * 100).round} percent chance you will have diabetes"
-```
+# Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age
 
-
+# Pregnancies,Glucose,BloodPressure,Insulin,BMI,Age
+results = diabetes.run(training.normalize_inputs([1,85,66,0,26.6,31]))
+puts "There is a #{(training.denormalize_outputs(results)[1] * 100).round} percent chance you will have diabetes"```

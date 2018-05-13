@@ -29,8 +29,8 @@ while (csv.next)
 end
 
 # normalize the data
-normalized = SHAInet::TrainingData.new(inputs, outputs)
-normalized.normalize_min_max
+training = SHAInet::TrainingData.new(inputs, outputs)
+training.normalize_min_max
 
 # create a network
 diabetes : SHAInet::Network = SHAInet::Network.new
@@ -44,7 +44,7 @@ diabetes.learning_rate = 0.01
 diabetes.momentum = 0.01
 
 # train the network
-diabetes.train(normalized.data.shuffle, :sgdm, :mse, epoch = 1000, threshold = -1.0, log = 100)
+diabetes.train(training.data.shuffle, :sgdm, :mse, epoch = 1000, threshold = -1.0, log = 100)
 
 # save to file
 diabetes.save_to_file("./model/diabetes.nn")
@@ -52,7 +52,7 @@ diabetes.save_to_file("./model/diabetes.nn")
 tn = tp = fn = fp = 0
 
 # determine accuracy
-normalized.normalized_inputs.each_with_index do |test, idx|
+training.normalized_inputs.each_with_index do |test, idx|
   results = diabetes.run(test)
   if results[0] < 0.5
     if outputs[idx][0] == 0.0
@@ -76,3 +76,7 @@ puts "----------------------"
 puts "FN: #{fn} | TP: #{tp}"
 puts "----------------------"
 puts "Accuracy: #{(tn + tp) / outputs.size.to_f}"
+
+# Pregnancies,Glucose,BloodPressure,Insulin,BMI,Age
+results = diabetes.run(training.normalize_inputs([0, 100, 140, 0, 25, 50]))
+puts "There is a #{(training.denormalize_outputs(results)[1] * 100).round} percent chance you will have diabetes"
