@@ -14,5 +14,5 @@ license: MIT
 
 dependencies:
   shainet:
-    github: drujensen/shainet
-    branch: dj/denormalize
+    github: NeuraLegion/shainet
+    branch: master
