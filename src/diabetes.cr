@@ -1,5 +1,5 @@
 require "csv"
-require "shainet"
+require "evolvenet"
 
 # use binary dummy columns for `Outcome` column
 label = {
@@ -29,25 +29,19 @@ while (csv.next)
 end
 
 # normalize the data
-training = SHAInet::TrainingData.new(inputs, outputs)
+training = EvolveNet::TrainingData.new(inputs, outputs)
 training.normalize_min_max
 
 # create a network
-diabetes : SHAInet::Network = SHAInet::Network.new
-diabetes.add_layer(:input, 6, :memory)
-diabetes.add_layer(:hidden, 8, :memory)
-diabetes.add_layer(:output, 2, :memory)
+diabetes : EvolveNet::Network = EvolveNet::Network.new
+diabetes.add_layer(:input, 6)
+diabetes.add_layer(:hidden, 8)
+diabetes.add_layer(:output, 2)
 diabetes.fully_connect
 
-# params for sgdm
-diabetes.learning_rate = 0.01
-diabetes.momentum = 0.01
-
-# train the network
-diabetes.train(training.data.shuffle, :sgdm, :mse, epoch = 1000, threshold = -1.0, log = 100)
-
-# save to file
-diabetes.save_to_file("./model/diabetes.nn")
+# evolve the network
+organism = EvolveNet::Organism.new(diabetes, 100, 20)
+diabetes = organism.evolve(training.data, 5000)
 
 tn = tp = fn = fp = 0
 
@@ -78,5 +72,5 @@ puts "----------------------"
 puts "Accuracy: #{(tn + tp) / outputs.size.to_f}"
 
 # Pregnancies,Glucose,BloodPressure,Insulin,BMI,Age
-results = diabetes.run(training.normalize_inputs([0, 100, 140, 0, 25, 50]))
+results = diabetes.run(training.normalize_inputs([0, 80, 120, 0, 23, 52]))
 puts "There is a #{(training.denormalize_outputs(results)[1] * 100).round} percent chance you will have diabetes"

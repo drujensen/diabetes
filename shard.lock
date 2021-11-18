@@ -1,6 +1,6 @@
-version: 1.0
+version: 2.0
 shards:
-  shainet:
-    github: NeuraLegion/shainet
-    commit: b914ea01c617ca67fa0e67991a9fc38d174cb4be
+  evolvenet:
+    git: https://github.com/drujensen/evolvenet.git
+    version: 0.1.0+git.commit.3b09981baef4393ecaec81796e3c9bdb9672f571
 
